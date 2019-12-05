@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { connect } from 'react-redux';
 import Products from './../components/Products';
 import Product from './../components/Product';
+import { actAddToCart, actChangeMessage } from './../actions/index';
 
 class ProductsContainer extends Component {
   render() {
@@ -12,11 +13,12 @@ class ProductsContainer extends Component {
       </Products>
     );
   }
-  showProducts(products){
+  showProducts= (products) => {
     var result = null;
+    var { onAddToCart, onChangeMessage } = this.props;
     if(products.length > 0) {
       result = products.map((product, index)=>{
-        return <Product key={index} product={product} />
+        return <Product key={index} product={product} onAddToCart={onAddToCart} onChangeMessage={onChangeMessage} />
       })
     }
     return result;
@@ -28,4 +30,14 @@ const mapStateToProps = state => {
     products: state.products
   }
 }
-export default connect(mapStateToProps, null)(ProductsContainer);
+const mapDispatchToProps = (dispatch, props)=>{
+  return {
+    onAddToCart: (product) => {
+      dispatch(actAddToCart(product,1));
+    },
+    onChangeMessage: (message) => {
+      dispatch(actChangeMessage(message));
+    }
+  }
+}
+export default connect(mapStateToProps, mapDispatchToProps)(ProductsContainer);

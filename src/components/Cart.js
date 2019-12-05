@@ -2,7 +2,6 @@ import React, { Component } from "react";
 
 class Cart extends Component {
   render() {
-    console.log(this.props);
     var { children } = this.props;
     return (
       <section className="section">
