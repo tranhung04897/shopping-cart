@@ -1,3 +1,5 @@
+import * as types from './../constants/ActionType';
+
 var initialState = [
   {
     id: 1,
@@ -30,6 +32,7 @@ var initialState = [
 
 const products = (state = initialState, action)=> {
   switch(action.types) {
+  
     default: return [...state];
   }
 }
