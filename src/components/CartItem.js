@@ -1,4 +1,6 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { Component } from "react";
+import * as Message from './../constants/Message';
 
 class CartItem extends Component {
   render() {
@@ -42,12 +44,17 @@ class CartItem extends Component {
             data-placement="top"
             title=""
             data-original-title="Remove item"
+            onClick={()=> this.onDeleteProductInCart(cartItem)}
           >
             X
           </button>
         </td>
       </tr>
     );
+  }
+  onDeleteProductInCart = (cartItem) =>{
+    this.props.onDeleteProductInCart(cartItem);
+    this.props.onChangeMessage(Message.MSG_DELETE_PRODUCT_CART_SUCCESS)
   }
 }
 
