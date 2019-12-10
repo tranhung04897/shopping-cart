@@ -1,4 +1,3 @@
-/* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { Component } from "react";
 import * as Message from './../constants/Message';
 
@@ -52,10 +51,10 @@ class CartItem extends Component {
       </tr>
     );
   }
-  onDeleteProductInCart = (cartItem) =>{
-    this.props.onDeleteProductInCart(cartItem);
-    this.props.onChangeMessage(Message.MSG_DELETE_PRODUCT_CART_SUCCESS)
-  }
-}
 
+onDeleteProductInCart = (cartItem) =>{
+  this.props.onDeleteProductInCart(cartItem);
+  this.props.onChangeMessage(Message.MSG_DELETE_PRODUCT_CART_SUCCESS)
+}
+}
 export default CartItem;
