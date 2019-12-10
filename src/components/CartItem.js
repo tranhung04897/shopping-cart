@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import * as Message from './../constants/Message';
 
 class CartItem extends Component {
+
   render() {
     var { cartItem, quantity } = this.props;
     return (
@@ -23,11 +24,13 @@ class CartItem extends Component {
           <span className="qty">{quantity}</span>
           <div className="btn-group radio-group" data-toggle="buttons">
             <label
+              onClick={()=>this.onUpdateQuantity(cartItem, quantity -1)}
               className="btn btn-sm btn-primary btn-rounded waves-effect waves-light"
             >
               <a>—</a>
             </label>
             <label
+              onClick={()=>this.onUpdateQuantity(cartItem, quantity +1)}
               className="btn btn-sm btn-primary btn-rounded waves-effect waves-light"
             >
               <a>+</a>
@@ -51,10 +54,19 @@ class CartItem extends Component {
       </tr>
     );
   }
+  
+  onDeleteProductInCart = (cartItem) =>{
+    var {onDeleteProductInCart, onChangeMessage } = this.props;
+    onDeleteProductInCart(cartItem);
+    onChangeMessage(Message.MSG_DELETE_PRODUCT_CART_SUCCESS);
+  }
+  onUpdateQuantity=(product, quantity)=> {
+    if(quantity > 0){
+      var { onUpdateProductInCart, onChangeMessage } = this.props;
+      onUpdateProductInCart(product, quantity);
+      onChangeMessage(Message.MSG_UPDATE_CART_SUCCESS);
+    }
+  }
+}
 
-onDeleteProductInCart = (cartItem) =>{
-  this.props.onDeleteProductInCart(cartItem);
-  this.props.onChangeMessage(Message.MSG_DELETE_PRODUCT_CART_SUCCESS)
-}
-}
 export default CartItem;

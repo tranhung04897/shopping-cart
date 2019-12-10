@@ -1,5 +1,6 @@
 import * as types from './../constants/ActionType';
-// import _ from 'lodash';
+import _ from 'lodash';
+
 var data = JSON.parse(localStorage.getItem('CART'));
 var initialState = data ? data: [];
 
@@ -29,21 +30,21 @@ const cart = (state = initialState, action)=> {
       }
       localStorage.setItem('CART',JSON.stringify(state));
       return [...state];
-
+    case types.UPDATE_PRODUCT_IN_CART:
+      index = findProductInCart(state, product);
+      if(index !== -1){
+          state[index].quantity = quantity;
+      }
+      localStorage.setItem('CART', JSON.stringify(state));
+      return [...state];
     default: return [...state];
   }
 }
 
 var findProductInCart= (cart, product) =>{
-  var index = -1;
-    if(cart.length > 0) {
-      for (var i = 0; i < cart.length; i++){
-        if(cart[i].product.id === product.id){
-          index = i;
-          break;
-        }
-      }
-    }
+  var index = _.findIndex(cart, (o)=>{
+    return o.product.id === product.id;
+  })
   return index;
 }
 export default cart;
