@@ -1,5 +1,5 @@
 import * as types from './../constants/ActionType';
-
+import _ from 'lodash';
 var data = JSON.parse(localStorage.getItem('CART'));
 var initialState = data ? data: [];
 
@@ -38,15 +38,9 @@ const cart = (state = initialState, action)=> {
 }
 
 var findProductInCart= (cart, product) =>{
-  var index = -1;
-    if(cart.length > 0) {
-      for (var i = 0; i < cart.length; i++){
-        if(cart[i].product.id === product.id){
-          index = i;
-          break;
-        }
-      }
-    }
+  var index = _.findIndex(cart, (o)=>{
+    return o.product.id === product.id;
+  })
   return index;
 }
 export default cart;
